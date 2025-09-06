@@ -1,0 +1,6 @@
+@BuildingCharge.WebAPI_HostAddress = http://localhost:5105
+
+GET {{BuildingCharge.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
