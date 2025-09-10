@@ -15,12 +15,20 @@ namespace BuildingCharge.WebAPI.Controllers
             _unitRepo = unitRepo;
         }
 
+        /// <summary>
+        /// Retrieves all residential units.
+        /// </summary>
+        /// <returns>List of units.</returns>
+        /// <response code="200">Units successfully retrieved.</response>
+
         [HttpGet]
         public async Task<IActionResult> GetAll(CancellationToken ct)
         {
             var units = await _unitRepo.GetAllAsync(ct);
             return Ok(units);
         }
+
+
 
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById(int id, CancellationToken ct)
@@ -29,6 +37,15 @@ namespace BuildingCharge.WebAPI.Controllers
             if (unit == null) return NotFound();
             return Ok(unit);
         }
+
+
+        /// <summary>
+        /// Creates a new residential unit.
+        /// </summary>
+        /// <param name="unit">Unit data including name, number, and owner info.</param>
+        /// <returns>The created unit object.</returns>
+        /// <response code="201">Unit successfully created.</response>
+        /// <response code="400">Invalid input data.</response>
 
         [HttpPost]
         public async Task<IActionResult> Create(Unit unit, CancellationToken ct)
