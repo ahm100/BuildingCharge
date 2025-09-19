@@ -16,6 +16,10 @@ namespace BuildingCharge.Core.Application.Mappings
             CreateMap<CreateChargeDto, Charge>();
             CreateMap<CreateChargeItemDto, ChargeItem>();
             CreateMap<CreateShareDto, UnitChargeShare>();
+
+            CreateMap<Charge, ChargeResponseDto>();
+            CreateMap<ChargeItem, ChargeItemDto>();
+            CreateMap<UnitChargeShare, ShareDto>();
         }
     }
 }

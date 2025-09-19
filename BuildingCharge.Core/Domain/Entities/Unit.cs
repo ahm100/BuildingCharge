@@ -10,6 +10,8 @@ namespace BuildingCharge.Core.Domain.Entities
     public class Unit : EntityBase
     {
         public string Name { get; set; } = default!;
+        public string? ResidentName { get; set; } = default!;
+        public string? OwnerName { get; set; } = default!;
         public decimal TotalDebt { get; set; }
         public decimal TotalCredit { get; set; }
         public decimal PreviousBalance => TotalCredit - TotalDebt;

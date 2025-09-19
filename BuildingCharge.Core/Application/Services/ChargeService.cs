@@ -231,10 +231,12 @@ namespace BuildingCharge.Core.Application.Services
         //    return await _chargeRepo.AddAsync(charge, ct);
         //}
 
-        public async Task<Charge> CreateAsync(CreateChargeDto dto, CancellationToken ct)
+      
+        public async Task<ChargeResponseDto> CreateAsync(CreateChargeDto dto, CancellationToken ct)
         {
             var charge = _mapper.Map<Charge>(dto);
-            return await _chargeRepo.AddAsync(charge, ct);
+            var created = await _chargeRepo.AddAsync(charge, ct);
+            return _mapper.Map<ChargeResponseDto>(created);
         }
 
 

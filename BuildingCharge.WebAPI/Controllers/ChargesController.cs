@@ -61,13 +61,13 @@ namespace BuildingCharge.WebAPI.Controllers
         //    var created = await _chargeRepo.AddAsync(charge, ct);
         //    return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
         //}
-
         [HttpPost("create")]
         public async Task<IActionResult> CreateFromDto([FromBody] CreateChargeDto dto, CancellationToken ct)
         {
-            var created = await _chargeService.CreateAsync(dto, ct);
-            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+            var result = await _chargeService.CreateAsync(dto, ct);
+            return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
         }
+
 
 
 
