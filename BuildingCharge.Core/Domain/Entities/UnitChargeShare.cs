@@ -21,7 +21,7 @@ namespace BuildingCharge.Core.Domain.Entities
         // مبلغ نهایی پس از لحاظ PreviousBalance (Read Model ذخیره‌ای)
         public decimal FinalAmount { get; set; }
 
-        public Unit Unit { get; set; } = default!;
-        public Charge Charge { get; set; } = default!;
+        public Unit? Unit { get; set; } 
+        public Charge? Charge { get; set; }
     }
 }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BuildingCharge.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250913064108_initdb")]
+    [Migration("20250919122804_initdb")]
     partial class initdb
     {
         /// <inheritdoc />
@@ -76,7 +76,6 @@ namespace BuildingCharge.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 

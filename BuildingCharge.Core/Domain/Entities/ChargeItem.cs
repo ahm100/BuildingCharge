@@ -10,9 +10,9 @@ namespace BuildingCharge.Core.Domain.Entities
     public class ChargeItem : EntityBase
     {
         public int ChargeId { get; set; }
-        public string Description { get; set; } = default!;
+        public string? Description { get; set; }
         public decimal Amount { get; set; }
 
-        public Charge Charge { get; set; } = default!;
+        public Charge? Charge { get; set; }
     }
 }
