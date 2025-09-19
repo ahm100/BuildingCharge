@@ -23,6 +23,7 @@ builder.Services.AddScoped<IChargeRepository, ChargeRepository>();
 //builder.Services.AddScoped<IShareRepository, ShareRepository>();
 builder.Services.AddScoped<IChargeCalculator, ChargeCalculator>();
 builder.Services.AddScoped<IChargeService, ChargeService>();
+builder.Services.AddScoped<IUnitChargeShareRepository, UnitChargeShareRepository>();
 
 // Add services to the container.
 
