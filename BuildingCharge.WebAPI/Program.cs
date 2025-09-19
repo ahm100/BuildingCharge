@@ -1,4 +1,5 @@
 using BuildingCharge.Core.Application.Interfaces;
+using BuildingCharge.Core.Application.Mappings;
 using BuildingCharge.Core.Application.Services;
 using BuildingCharge.Infrastructure.Persistence;
 using BuildingCharge.Infrastructure.Repositories;
@@ -17,6 +18,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
             sql.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
         });
 });
+
+//builder.Services.AddAutoMapper(typeof(ChargeProfile).Assembly);
+builder.Services.AddAutoMapper(typeof(MappingProfileMarker).Assembly);
+
 
 builder.Services.AddScoped<IUnitRepository, UnitRepository>();
 builder.Services.AddScoped<IChargeRepository, ChargeRepository>();

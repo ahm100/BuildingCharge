@@ -1,4 +1,5 @@
-﻿using BuildingCharge.Core.Application.DTOs;
+﻿using AutoMapper;
+using BuildingCharge.Core.Application.DTOs;
 using BuildingCharge.Core.Application.DTOs.Charges;
 using BuildingCharge.Core.Application.Interfaces;
 using BuildingCharge.Core.Domain.Entities;
@@ -15,11 +16,12 @@ namespace BuildingCharge.Core.Application.Services
     {
         private readonly IChargeRepository _chargeRepo;
         private readonly IUnitRepository _unitRepo;
-
-        public ChargeService(IChargeRepository chargeRepo, IUnitRepository unitRepo)
+        private readonly IMapper _mapper;
+        public ChargeService(IChargeRepository chargeRepo, IUnitRepository unitRepo, IMapper mapper)
         {
             _chargeRepo = chargeRepo;
             _unitRepo = unitRepo;
+            _mapper = mapper;
         }
 
 
@@ -206,29 +208,34 @@ namespace BuildingCharge.Core.Application.Services
         }
 
 
+        //public async Task<Charge> CreateAsync111(CreateChargeDto dto, CancellationToken ct)
+        //{
+        //    var charge = new Charge
+        //    {
+        //        Type = dto.Type,
+        //        SourceType = (ChargeSource)dto.SourceType,
+        //        Period = dto.Period,
+        //        ManualAmount = dto.ManualAmount,
+        //        Items = dto.Items.Select(i => new ChargeItem
+        //        {
+        //            Description = i.Description,
+        //            Amount = i.Amount
+        //        }).ToList(),
+        //        Shares = dto.Shares.Select(s => new UnitChargeShare
+        //        {
+        //            UnitId = s.UnitId,
+        //            Coefficient = s.Coefficient
+        //        }).ToList()
+        //    };
+
+        //    return await _chargeRepo.AddAsync(charge, ct);
+        //}
+
         public async Task<Charge> CreateAsync(CreateChargeDto dto, CancellationToken ct)
         {
-            var charge = new Charge
-            {
-                Type = dto.Type,
-                SourceType = (ChargeSource)dto.SourceType,
-                Period = dto.Period,
-                ManualAmount = dto.ManualAmount,
-                Items = dto.Items.Select(i => new ChargeItem
-                {
-                    Description = i.Description,
-                    Amount = i.Amount
-                }).ToList(),
-                Shares = dto.Shares.Select(s => new UnitChargeShare
-                {
-                    UnitId = s.UnitId,
-                    Coefficient = s.Coefficient
-                }).ToList()
-            };
-
+            var charge = _mapper.Map<Charge>(dto);
             return await _chargeRepo.AddAsync(charge, ct);
         }
-
 
 
     }

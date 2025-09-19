@@ -71,7 +71,6 @@ namespace BuildingCharge.WebAPI.Controllers
 
 
 
-
         [HttpPost("{chargeId:int}/shares")]
         public async Task<IActionResult> UpsertShares(int chargeId, List<UnitChargeShare> shares, CancellationToken ct)
         {
