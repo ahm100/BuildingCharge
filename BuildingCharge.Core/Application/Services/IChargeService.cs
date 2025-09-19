@@ -1,4 +1,6 @@
 ﻿using BuildingCharge.Core.Application.DTOs;
+using BuildingCharge.Core.Application.DTOs.Charges;
+using BuildingCharge.Core.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +18,7 @@ namespace BuildingCharge.Core.Application.Services
             int pageNumber = 1, int pageSize = 20, CancellationToken ct = default);
 
          Task<List<ChargeWithUnitsDto>> GetAllChargesReportAsync(CancellationToken ct = default);
+        Task<Charge> CreateAsync(CreateChargeDto dto, CancellationToken ct);
+
     }
 }

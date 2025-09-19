@@ -1,5 +1,8 @@
 ﻿using BuildingCharge.Core.Application.DTOs;
+using BuildingCharge.Core.Application.DTOs.Charges;
 using BuildingCharge.Core.Application.Interfaces;
+using BuildingCharge.Core.Domain.Entities;
+using BuildingCharge.Core.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -200,7 +203,31 @@ namespace BuildingCharge.Core.Application.Services
             }
 
             return result;
-        } 
+        }
+
+
+        public async Task<Charge> CreateAsync(CreateChargeDto dto, CancellationToken ct)
+        {
+            var charge = new Charge
+            {
+                Type = dto.Type,
+                SourceType = (ChargeSource)dto.SourceType,
+                Period = dto.Period,
+                ManualAmount = dto.ManualAmount,
+                Items = dto.Items.Select(i => new ChargeItem
+                {
+                    Description = i.Description,
+                    Amount = i.Amount
+                }).ToList(),
+                Shares = dto.Shares.Select(s => new UnitChargeShare
+                {
+                    UnitId = s.UnitId,
+                    Coefficient = s.Coefficient
+                }).ToList()
+            };
+
+            return await _chargeRepo.AddAsync(charge, ct);
+        }
 
 
 

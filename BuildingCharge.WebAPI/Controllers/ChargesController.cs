@@ -1,6 +1,8 @@
-﻿using BuildingCharge.Core.Application.Interfaces;
+﻿using BuildingCharge.Core.Application.DTOs.Charges;
+using BuildingCharge.Core.Application.Interfaces;
 using BuildingCharge.Core.Application.Services;
 using BuildingCharge.Core.Domain.Entities;
+using BuildingCharge.Core.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BuildingCharge.WebAPI.Controllers
@@ -53,12 +55,20 @@ namespace BuildingCharge.WebAPI.Controllers
         /// <response code="201">Charge successfully created.</response>
         /// <response code="400">Invalid charge data.</response>
 
-        [HttpPost]
-        public async Task<IActionResult> Create(Charge charge, CancellationToken ct)
+        //[HttpPost]
+        //public async Task<IActionResult> Create(Charge charge, CancellationToken ct)
+        //{
+        //    var created = await _chargeRepo.AddAsync(charge, ct);
+        //    return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+        //}
+
+        [HttpPost("create")]
+        public async Task<IActionResult> CreateFromDto([FromBody] CreateChargeDto dto, CancellationToken ct)
         {
-            var created = await _chargeRepo.AddAsync(charge, ct);
+            var created = await _chargeService.CreateAsync(dto, ct);
             return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
         }
+
 
 
 

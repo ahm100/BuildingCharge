@@ -13,10 +13,10 @@ namespace BuildingCharge.Core.Application.DTOs
         public decimal TotalCredit { get; set; }
     }
 
-    public class ShareInputDto
-    {
-        public Guid ChargeId { get; set; }
-        public Guid UnitId { get; set; }
-        public decimal Coefficient { get; set; }
-    }
+    //public class ShareInputDto
+    //{
+    //    public Guid ChargeId { get; set; }
+    //    public Guid UnitId { get; set; }
+    //    public decimal Coefficient { get; set; }
+    //}
 }
