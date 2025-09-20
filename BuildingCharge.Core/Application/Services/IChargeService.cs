@@ -18,6 +18,9 @@ namespace BuildingCharge.Core.Application.Services
             int pageNumber = 1, int pageSize = 20, CancellationToken ct = default);
 
          Task<List<ChargeWithUnitsDto>> GetAllChargesReportAsync(CancellationToken ct = default);
+
+        Task DeleteAsync(int id, CancellationToken ct);
+
         Task<ChargeResponseDto> CreateAsync(CreateChargeDto dto, CancellationToken ct);
 
 

@@ -1,4 +1,5 @@
 ﻿using BuildingCharge.Core.Application.DTOs.Charges;
+using BuildingCharge.Core.Application.Exceptions;
 using BuildingCharge.Core.Application.Interfaces;
 using BuildingCharge.Core.Application.Services;
 using BuildingCharge.Core.Domain.Entities;
@@ -47,6 +48,27 @@ namespace BuildingCharge.WebAPI.Controllers
         }
 
 
+        //[HttpDelete("{id:int}")]
+        [HttpDelete("delete/{id:int}")]
+        public async Task<IActionResult> Delete(int id, CancellationToken ct)
+        {
+            try
+            {
+                await _chargeService.DeleteAsync(id, ct);
+                return Ok(new { message = $"Charge {id} deleted successfully." });
+            }
+            catch (NotFoundException)
+            {
+                return NotFound();
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+        }
+
+
+
         /// <summary>
         /// Creates a new charge and assigns shares to units.
         /// </summary>
@@ -55,12 +77,6 @@ namespace BuildingCharge.WebAPI.Controllers
         /// <response code="201">Charge successfully created.</response>
         /// <response code="400">Invalid charge data.</response>
 
-        //[HttpPost]
-        //public async Task<IActionResult> Create(Charge charge, CancellationToken ct)
-        //{
-        //    var created = await _chargeRepo.AddAsync(charge, ct);
-        //    return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
-        //}
         [HttpPost("create")]
         public async Task<IActionResult> CreateFromDto([FromBody] CreateChargeDto dto, CancellationToken ct)
         {

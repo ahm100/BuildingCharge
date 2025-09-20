@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BuildingCharge.Core.Application.DTOs;
 using BuildingCharge.Core.Application.DTOs.Charges;
+using BuildingCharge.Core.Application.Exceptions;
 using BuildingCharge.Core.Application.Interfaces;
 using BuildingCharge.Core.Domain.Entities;
 using BuildingCharge.Core.Domain.Enums;
@@ -208,30 +209,21 @@ namespace BuildingCharge.Core.Application.Services
         }
 
 
-        //public async Task<Charge> CreateAsync111(CreateChargeDto dto, CancellationToken ct)
-        //{
-        //    var charge = new Charge
-        //    {
-        //        Type = dto.Type,
-        //        SourceType = (ChargeSource)dto.SourceType,
-        //        Period = dto.Period,
-        //        ManualAmount = dto.ManualAmount,
-        //        Items = dto.Items.Select(i => new ChargeItem
-        //        {
-        //            Description = i.Description,
-        //            Amount = i.Amount
-        //        }).ToList(),
-        //        Shares = dto.Shares.Select(s => new UnitChargeShare
-        //        {
-        //            UnitId = s.UnitId,
-        //            Coefficient = s.Coefficient
-        //        }).ToList()
-        //    };
+        public async Task DeleteAsync(int id, CancellationToken ct)
+        {
+            var charge = await _chargeRepo.GetByIdFullAsync(id, ct); // شامل Items و Shares
+            if (charge == null)
+                throw new NotFoundException($"Charge {id} not found.");
 
-        //    return await _chargeRepo.AddAsync(charge, ct);
-        //}
+            var hasFinalizedShares = charge.Shares.Any(s => s.FinalAmount.HasValue);
+            if (hasFinalizedShares)
+                throw new InvalidOperationException("This charge has finalized shares and cannot be deleted.");
 
-      
+            await _chargeRepo.DeleteAsync(charge, ct);
+        }
+
+
+
         public async Task<ChargeResponseDto> CreateAsync(CreateChargeDto dto, CancellationToken ct)
         {
             var charge = _mapper.Map<Charge>(dto);

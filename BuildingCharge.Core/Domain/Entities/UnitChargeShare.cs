@@ -16,10 +16,10 @@ namespace BuildingCharge.Core.Domain.Entities
         public decimal Coefficient { get; set; }
 
         // مبلغ سهم محاسبه‌شده از شارژ (بدون تراز قبلی)
-        public decimal CalculatedAmount { get; set; }
+        public decimal? CalculatedAmount { get; set; }
 
         // مبلغ نهایی پس از لحاظ PreviousBalance (Read Model ذخیره‌ای)
-        public decimal FinalAmount { get; set; }
+        public decimal? FinalAmount { get; set; }
 
         public Unit? Unit { get; set; } 
         public Charge? Charge { get; set; }
