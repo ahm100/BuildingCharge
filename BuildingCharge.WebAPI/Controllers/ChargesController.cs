@@ -4,7 +4,9 @@ using BuildingCharge.Core.Application.Interfaces;
 using BuildingCharge.Core.Application.Services;
 using BuildingCharge.Core.Domain.Entities;
 using BuildingCharge.Core.Domain.Enums;
+using BuildingCharge.WebAPI.SwaggerExamples.Charges;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace BuildingCharge.WebAPI.Controllers
 {
@@ -78,6 +80,8 @@ namespace BuildingCharge.WebAPI.Controllers
         /// <response code="400">Invalid charge data.</response>
 
         [HttpPost("create")]
+        [SwaggerRequestExample(typeof(CreateChargeDto), typeof(WaterChargeExample))]
+        [SwaggerResponseExample(200, typeof(WaterChargeExample))]
         public async Task<IActionResult> CreateFromDto([FromBody] CreateChargeDto dto, CancellationToken ct)
         {
             var result = await _chargeService.CreateAsync(dto, ct);

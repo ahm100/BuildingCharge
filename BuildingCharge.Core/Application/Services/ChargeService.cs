@@ -211,16 +211,18 @@ namespace BuildingCharge.Core.Application.Services
 
         public async Task DeleteAsync(int id, CancellationToken ct)
         {
-            var charge = await _chargeRepo.GetByIdFullAsync(id, ct); // شامل Items و Shares
+            var charge = await _chargeRepo.GetByIdFullAsync(id, ct);
             if (charge == null)
                 throw new NotFoundException($"Charge {id} not found.");
 
+            // معیار درست: FinalAmount در Shares
             var hasFinalizedShares = charge.Shares.Any(s => s.FinalAmount.HasValue);
             if (hasFinalizedShares)
                 throw new InvalidOperationException("This charge has finalized shares and cannot be deleted.");
 
             await _chargeRepo.DeleteAsync(charge, ct);
         }
+
 
 
 
